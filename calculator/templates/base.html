@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en">
+	{% include 'head.html' %}
+	{% include 'style.html' %}
+	{% include 'nav.html' %}
+	<body>
+		<main role="main">
+			<div class="d-flex toggled page-content-wrapper" id="wrapper">
+				<div class="container">
+					{% block content %}{% endblock %}
+				</div>
+			</div>
+		</main>
+	</body>
+
+	<script>
+	$(document).ready( function () {
+    	$('#player-data-table').DataTable();
+	} );
+	</script>
+</html>

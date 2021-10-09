@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% block content %}
+
+	<!-- Adapted from : view-source:https://getbootstrap.com/docs/4.0/examples/dashboard/ -->
+	<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center border-bottom mt-3">
+		<h1 class="h2">Dashboard</h1>
+	</div>
+
+	<div class="row row-cols-1 row-cols-md-3 text-center py-3">
+		<div class="col">
+			<div class="card rounded-3 shadow-sm">
+				<div class="card-header py-3">
+					<h5 class="my-0 fw-normal">The 2016 Qualifying Offer</h5>
+				</div>
+				<div class="card-body">
+					<h2 class="card-title pricing-card-title">{{ summary.qualifying_offer | format_currency }}</h2>
+				</div>
+			</div>
+		</div>
+		<div class="col">
+			<div class="card rounded-3 shadow-sm">
+				<div class="card-header py-3">
+					<h5 class="my-0 fw-normal">Calculated from...</h5>
+				</div>
+				<div class="card-body pb-0">
+					<h2 class="card-title pricing-card-title">The {{ summary.number_of_salaries }} highest salaries</h2>
+				</div>
+				<form class="px-4 pt-0 pb-2" action="{{ url_for('api_bp.calculator') }}" method="post">
+					<div class="form-group">
+						<input type="number" class="form-control" name="numberOfSalaries" id="numberOfSalaries" placeholder="New number of salaries">
+					</div>
+					<button type="submit" class="btn btn-primary m-2">Recalculate</button>
+				</form>
+
+			</div>
+		</div>
+		<div class="col">
+			<div class="card rounded-3 shadow-sm">
+				<div class="card-header py-3">
+					<h5 class="my-0 fw-normal">Out of a total of...</h5>
+				</div>
+				<div class="card-body">
+					<h2 class="card-title pricing-card-title">{{ summary.meta.postfiltered_row_count }} players</h2>
+					<ul class="list-unstyled mt-3 mb-2">
+						<li class="font-italic">{{ summary.meta.prefiltered_row_count - summary.meta.postfiltered_row_count }} players were filtered out due to bad data</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<h2 class="border-bottom pb-2">All Player Salaries</h2>
+
+	<table id="player-data-table" class="display">
+		<thead>
+			<tr>
+				<th>Player</th>
+				<th>Salary</th>
+				<th>Year</th>
+				<th>Level</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for row in all_salaries %}
+				<tr>
+					<td>{{ row.Player }}</td>
+					<td>{{ row.Salary | format_currency }}</td>
+					<td>{{ row.Year }}</td>
+					<td>{{ row.Level }}</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+
+{% endblock %}
