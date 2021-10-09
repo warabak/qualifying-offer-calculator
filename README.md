@@ -73,3 +73,7 @@ python app.py
     2. Go to http://localhost:5000/calculator
     3. Play around with the data! You can search, sort, and adjust the number of players used in calculating the
        qualifying offer with the query parameter number_of_salaries=99
+
+## CLI Demo
+
+![cli-demo](docs/images/cli-demo.gif)
